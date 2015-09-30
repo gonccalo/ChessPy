@@ -1,5 +1,6 @@
 # coding=utf-8
 #player b=black, w=white
+#upper=white, lower=black
 player = None
 winner = None
 field = []
@@ -20,18 +21,48 @@ def init_game():
 
 
 def human_play():
-    de, para = get_input()
-    check_from(de)
+    permitida_from = False
+    permitida_to = False
+    game_ended()
+    while (not permitida_from) or (not permitida_to):
+        de, para = get_input()
+        permitida_from = check_from(de)
+        permitida_to = check_to(para)
+
+        if not permitida_from:
+            print "posiçao de partida inválida"
+        elif not permitida_to:
+            print "posiçao de chegada inválida"
 
     #TODO
-    #verificar se existe peca na 1 posicao e pertence ao jogador
-    #verificar se a segunda posicao esta livre ou tem peça do outro jogador
     #obedece as regras
+
+
+def game_ended()
+
+
+#verifica se para onde se esta a tentar jogar e um lugar vazio ou uma peça do outro jogador
+def check_to(para):
+    p = get_piece(para)
+    if p == ".":                               # posiçao vazia
+        return True
+    if p.isupper() and player == "w":          # peça branca e branco a tentar comer
+        return False
+    if (not p.isupper()) and player == "b":    # peça preta e preto a tentar comer
+        return False
+    return True                                # interracional only
 
 
 #verifica se existe a peça e se pertence ao jogador
 def check_from(de):
-    return 0
+    p = get_piece(de)
+    if p.isupper() and player != "w":         # peça branca e nao e o branco a jogar
+        return False
+    if (not p.isupper()) and player != "b":   # peça preta e nao e o preto a jogar
+        return False
+    if p == ".":                              # nao existe peça nesta posiçao
+        return False
+    return True
 
 
 #devolve a peça presente na posiçao dada
@@ -91,6 +122,6 @@ def print_field():
 
 init_game()
 print_field()
-print get_piece(raw_input("pos: "))
+print check_to(raw_input("pos: "))
 human_play()
 print_field()
