@@ -22,6 +22,7 @@ def init_game():
 def human_play():
     de, para = get_input()
     check_from(de)
+
     #TODO
     #verificar se existe peca na 1 posicao e pertence ao jogador
     #verificar se a segunda posicao esta livre ou tem peça do outro jogador
