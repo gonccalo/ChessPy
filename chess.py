@@ -38,6 +38,20 @@ def human_play():
                 #obedece as regras
 
 
+#move uma peça da posiçao de para a posiçao para
+def mexer_peca(de, para):
+    dic = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7}
+
+    linha = int(de[1]) + (2 * (4 - int(de[1])))        # de
+    coluna = dic[de[0].upper()]
+    peca = field[linha][coluna]
+    field[linha][coluna] = "."
+
+    linha = int(para[1]) + (2 * (4 - int(para[1])))    # para
+    coluna = dic[para[0].upper()]
+    field[linha][coluna] = peca
+
+
 #devolve 0 se o jogo ainda nao acabou, 1 se o branco ganhou e 2 se o preto ganhou
 def game_ended():
     w_king = False
@@ -136,6 +150,7 @@ def print_field():
 
 
 init_game()
+mexer_peca("A2", "A5")
 print_field()
 print game_ended()
 print check_to(raw_input("pos: "))
