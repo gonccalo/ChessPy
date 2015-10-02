@@ -9,6 +9,7 @@ field = []
 def init_game():
     global field
     global player
+    global winner
     field = [["t", "h", "b", "q", "k", "b", "h", "t"],
              ["p", "p", "p", "p", "p", "p", "p", "p"],
              [".", ".", ".", ".", ".", ".", ".", "."],
@@ -18,9 +19,11 @@ def init_game():
              ["P", "P", "P", "P", "P", "P", "P", "P"],
              ["T", "H", "B", "Q", "K", "B", "H", "T"]]
     player = "w"
+    winner = None
 
 
 def human_play():
+    global player
     permitida_from = False
     permitida_to = False
     if game_ended() == 0:
@@ -36,6 +39,14 @@ def human_play():
 
                 #TODO
                 #obedece as regras
+    #TODO
+    #jogo acabou
+    mexer_peca(de, para)
+    #mudar jogador
+    if player == "w":
+        player = "b"
+    else:
+        player = "w"
 
 
 #move uma peça da posiçao de para a posiçao para
@@ -150,9 +161,20 @@ def print_field():
 
 
 init_game()
-mexer_peca("A2", "A5")
+
+while not game_ended():
+    print_field()
+    if player == "w":
+        print "Branco a jogar!"
+    else:
+        print "Preto a jogar!"
+    human_play()
+    print "\n\n\n\n\n\n\n\n\n"
+
+print "\n\n\n\n\n\n\n\n\n"
+print "\n\n\n\n\n\n\n\n\n"
 print_field()
-print game_ended()
-print check_to(raw_input("pos: "))
-human_play()
-print_field()
+if game_ended() == 1:
+    print "Brancas ganharam"
+else:
+    print "Pretas ganharam"
